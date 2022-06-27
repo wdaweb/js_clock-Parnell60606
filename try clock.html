@@ -27,10 +27,18 @@
         background-color: white;
         height: 100vh;
         overflow: hidden;
+        border-radius: 20%;
       }
 
       .filter-blur-contrast {
         filter: blur(15px) contrast(30) saturate(.25);
+      }
+
+      .filter-blur-contrast2-drop {
+        filter: blur(5px) contrast(20) saturate(.25);
+        background-color: white;
+        height: 15vh;
+        z-index: -10;
       }
 
       .center {
@@ -76,10 +84,8 @@
         border-radius: 50%;
         transform: translate(50px, 50px);
         background-color: cadetblue;
-        /* background-color: red; */
         animation: animate3 4s infinite forwards;
         transition: 4s background ease;
-
       }
 
       /* 滑鼠移動到水灘上時  水灘變白 (消失) ---------------*/
@@ -90,49 +96,38 @@
         filter: blur(30px);
       }
 
-      .wave2 {
-        width: 400px;
-        height: 400px;
-        border-radius: 50%;
-        /* filter: blur(10px); */
 
-        /* background-color: MidnightBlue; */
-        background-color: MidnightBlue;
-        /* background-color: blue; */
-        /* background-color: white; */
-
-        /* ↓穿透顯示 */
-        pointer-events: none;
-
-      }
 
       /* 時鐘文字 ----------------------*/
       .clock {
-        /*  最前一層  混合模式色彩增值 */
         width: 320px;
         height: 320px;
         border-radius: 50%;
-        background: wheat;
 
-        font-size: 50px;
-        font-family: 'Distro', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        /* font-family: 'DISKOPIA2.0', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
-
-        mix-blend-mode: darken;
-        /* background-blend-mode: lighten; */
-
-        /* color: #97d6d6; */
+        font-family: 'Dosis', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
         /* ↓穿透顯示 */
         pointer-events: none;
 
+        background: rgba(245, 222, 179, 0.422);
+        mix-blend-mode: darken;
+        /* background-blend-mode: lighten; */
+      }
 
+      .display-none {
+        display: none;
+      }
+
+      .fade-out {
+        opacity: 1;
+        animation: fade-out 0.8s 1 forwards;
       }
 
       #hourbox {
         width: 100px;
         height: 50%;
         color: white;
+        font-size: 50px;
         position: absolute;
         left: calc(50% - 50px);
         top: 0%;
@@ -140,7 +135,7 @@
         /* ↓旋轉的圓心移動 */
         transform-origin: bottom center;
 
-        background: red;
+        /* background: red; */
       }
 
       #minbox {
@@ -148,32 +143,35 @@
         height: 70%;
         color: white;
         position: absolute;
+        font-size: 40px;
+
         left: calc(50% - 50px);
         top: -20%;
         transform: rotate(0deg);
         transform-origin: bottom center;
 
-        background: green;
+        /* background: green; */
       }
 
       #secbox {
         width: 100px;
         height: 90%;
         color: white;
+        font-size: 30px;
         position: absolute;
         left: calc(50% - 50px);
         top: -40%;
         transform: rotate(0deg);
         transform-origin: bottom center;
 
-        background: blue;
+        /* background: blue; */
       }
 
       .text {
         position: absolute;
         z-index: 10;
         left: 50%;
-        top: 4px;
+        top: 15px;
         transform: translate(-50%, 0);
       }
 
@@ -181,35 +179,62 @@
         height: 80px;
         width: 80px;
         border-radius: 50%;
+        margin-top: 10px;
 
         position: absolute;
         /* transform: translate(10px, 0px); */
-        background: fuchsia;
+
+        /* background: fuchsia; */
       }
 
       /* 時間數滴水 ------------------- */
       /* 時 */
       .waterdrop-translate-hour {
         transform: translate(10px, 150px);
-        animation: drop-second 2s 1 forwards;
+        animation: drop-second 3s 1 forwards;
+        background-color: rgb(151, 214, 214);
+
       }
+
 
       /* 分 */
       .waterdrop-translate-minute {
         transform: translate(10px, 200px);
-        animation: drop-second 2s 1 forwards;
+        animation: drop-second 3s 1 forwards;
+        background-color: rgb(151, 214, 214);
+
       }
 
-      /* 秒 */
+      /* 秒  兩個  後一個只跑一次 */
       .waterdrop-translate-second {
         transform: translate(10px, 250px);
         animation: drop-second 1s infinite backwards;
+        background-color: cadetblue;
+      }
+
+      .waterdrop-translate-second2 {
+        transform: translate(10px, 250px);
+        animation: drop-second 1s 1 forwards;
+        background-color: cadetblue;
       }
 
 
+      #mix-wave {
+        height: 80vh;
+        mix-blend-mode: soft-light;
+        opacity: 0.2;
+        pointer-events: none;
+      }
+
+      /* 淡出動畫 */
+      @keyframes fade-out {
+        100% {
+          opacity: 0;
+        }
+      }
+
       /* 水滴(clock)動畫 */
       @keyframes drop-second {
-
         100% {
           transform: translate(10px, 0px);
         }
@@ -271,21 +296,13 @@
           border-radius: 43%;
         }
       }
-
-      @keyframes hoverAnimate {
-        100% {
-          filter: blur(10px) contrast(20) saturate(.25);
-        }
-      }
-
-
-      /* 時鐘動畫----------------------------- */
     </style>
   </head>
 
   <body>
 
-    <!-- 有偽元素弄很久的水灘 -->
+
+    <!-- 有偽元素的水灘 -->
     <div class="container">
 
       <div class="white-background filter-blur-contrast ">
@@ -294,8 +311,10 @@
     </div>
 
 
+
     <!-- 時鐘部分 --------------------------------->
-    <div class="clock center ">
+
+    <div class="clock center display-none fade-out">
       <!-- 時 -->
       <div id="hourbox">
         <p id="hourboxText" class="text">hr</p>
@@ -314,33 +333,23 @@
       <div id="secbox">
         <p id="secboxText" class="text">sec</p>
 
-        <div class="waterdrop waterdrop-translate-second"></div>
+        <div class=" filter-blur-contrast2-drop">
+          <div class="waterdrop waterdrop-translate-second"></div>
+          <div class="waterdrop waterdrop-translate-second2"></div>
+        </div>
 
       </div>
 
 
     </div>
 
-
+    <div class="gif-wave display-none">
+      <img src="images/waterTwo.gif" id="mix-wave" class="center">
+    </div>
 
 
     <script>
-      /*
-        時鐘
-        時 分 秒
-        
-
-        不確定要不要加ㄉ功能
-        1.按照時間變色 (主要是wave上增加 mix-blend-mode 濾鏡) (要有JS運算顏色) 
-        2.底部水花的倒影 (一樣 mix-blend-mode )
-
-
-        鬧鐘 >>島輝
-        關鬧鐘 >幹嘛啊我的能力本來就是豆花啊
-        */
-
-
-        // 抓時間
+      // 抓時間
         let nowTime = new Date()
         let hour = nowTime.getHours()
         console.log(nowTime.getHours())
@@ -355,6 +364,7 @@
         const minbox = document.getElementById('minbox')
         
         const secbox = document.getElementById('secbox')
+        
         
         
         setInterval(() => {
@@ -373,29 +383,28 @@
         }, 1000);
         
 
-        /* 滑鼠Hover */
-        // const wave = document.get
+        // 當 wave1  被onmouseover  (hover的意思)    clock 的 display 就會消失 (最好漸變
+        const wave1 = document.querySelector('.wave1')
+        const clock = document.querySelector('.clock')
+        const gifWave = document.querySelector('.gif-wave')
 
-        // const waterdrop = document.getElementsByClassName('waterdrop')
-        // console.log(waterdrop)
-        const waterdrop = document.querySelectorAll('.waterdrop')
-        console.log(waterdrop)
-        // waterdrop.style.animation = 'none'
-        
-        for (let x in waterdrop){
-          console.log(waterdrop[x])
+        // 滑鼠移上去
+        wave1.onmouseover = () => {
+          clock.classList.toggle("display-none");
+          clock.classList.toggle("fade-out");
+          gifWave.classList.toggle("display-none");
         }
 
-        /* 
-          總之要改掉 waterdrop中的 animation
+        // 滑鼠移開
+        wave1.onmouseout = () => {
+          clock.classList.toggle("fade-out");
+          setTimeout(() =>{
+            clock.classList.toggle("display-none");
+          },800)
+          
+        }
 
 
-          抓出陣列的每個值
-          抓出個別的animation
-          改掉
-
-        
-        */
     </script>
   </body>
 
